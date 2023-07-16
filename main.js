@@ -12,20 +12,65 @@ initBars(container, numColumns);
 let bars = document.querySelectorAll('span');
 let barArr = Array.from(bars);
 
-selectionSort(randomValues);
+bubblesort(randomValues);
 
+//--------sfrequancy sort--------//
+async function frequancysort(arr){
+    for (let i = 0; i < arr.length; i++) {
+        barArr[i].style.backgroundColor = "yellow";
+        await sleep(sleepDuaration)
+        barArr[i].style.backgroundColor = "black";
+    }
+    arr.sort();
+    await resizebars(barArr, arr)
+    await animationEnd(barArr)
+}
+//--------selection sort--------//
+async function quickSort(arr, left = 0, right = arr.length - 1) {
+    if (left < right) {
+      const partitionIndex = await partition(arr, left, right);
+
+      await quickSort(arr, left, partitionIndex - 1);
+      barArr[right].style.backgroundColor = "green";
+      await quickSort(arr, partitionIndex + 1, right);
+      await setBarColors(left, right, "green")
+      barArr[right].style.backgroundColor = "green";
+    }
+    if (left == 0 && right == arr.length - 1)
+        animationEnd(barArr)
+  }
+  
+  async function partition(arr, left, right) {
+    const pivot = arr[right];
+    barArr[right].style.backgroundColor = "yellow";
+    await setBarColors(left, right, "green")
+    await setBarColors(left, right, "black")
+
+    let i = left - 1;
+    
+    for (let j = left; j < right; j++) {
+      if (arr[j] < pivot) {
+        i++; 
+        swap(arr, i, j);
+      }
+      await sleep(sleepDuaration)
+    }
+    
+    swap(arr, i + 1, right);
+    return i + 1;
+  }
 //--------bubble sort--------//
 async function bubblesort(arr) {
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - 1 - i; j++) {
         if (arr[j] > arr[j + 1]) {
-          barArr[j].style.backgroundColor = "yellow";
-          barArr[j + 1].style.backgroundColor = "yellow";
-          swap(arr, j, j + 1);
-          await sleep(sleepDuaration);
-          barArr[j].style.backgroundColor = "black";
-          barArr[j + 1].style.backgroundColor = "black";
-      }
+        	barArr[j].style.backgroundColor = "yellow";
+        	barArr[j + 1].style.backgroundColor = "yellow";
+        	swap(arr, j, j + 1);
+        	await sleep(sleepDuaration);
+        	barArr[j].style.backgroundColor = "black";
+        	barArr[j + 1].style.backgroundColor = "black";
+        }
     }
     barArr[arr.length - 1 - i].style.backgroundColor = "green";
   }
@@ -62,21 +107,21 @@ async function selectionSort(arr) {
 async function insertionSort(array) {
     for (let i = 1; i < array.length; i++) {
       let j = i;
-      setBarColors(0, i, "green");
+      insertionSetBarColors(0, i, "green");
   
       while (j > 0 && array[j] < array[j - 1]) {
         sleep(sleepDuaration)
-        setBarColors(0, j, "yellow");
+        insertionSetBarColors(0, j, "yellow");
         swap(array, j, j - 1);
         barArr[j].style.backgroundColor = "green";
         j--;
-        setBarColors(0, j, "green");
+        insertionSetBarColors(0, j, "green");
         await sleep(sleepDuaration);
       }
-      setBarColors(0, i, "green");
+      insertionSetBarColors(0, i, "green");
       
     }
-    await animationEnd(barArr);
+     animationEnd(barArr);
   }
 
 
@@ -102,7 +147,13 @@ function initBars(container, numColumns){
     }
 }
 
-function setBarColors(start, end, color) {
+async function setBarColors(start, end, color) {
+    for (let index = start; index < end; index++) {
+      barArr[index].style.backgroundColor = color;
+      await sleep(sleepDuaration)
+    }
+}
+function insertionSetBarColors(start, end, color) {
     for (let index = start; index < end; index++) {
       barArr[index].style.backgroundColor = color;
     }
@@ -129,6 +180,14 @@ function swap(arr, a, b) {
     barArr[b].style.height = tempHeight;
 }
 
+async function resizebars(barArr, arr){
+    for (let k = 0; k < barArr.length; k++) {
+        barArr[k].style.height = (arr[k] * 100) + "%";
+        barArr[k].style.backgroundColor = "green";
+        await sleep(sleepDuaration)
+    }
+}
+
 //-----------old ideas-----------//
 // function swapDivs(span1, span2) {
 //     let parent1 = span1.parentNode;
@@ -138,8 +197,3 @@ function swap(arr, a, b) {
 //     parent1.insertBefore(span2, sibling1);
 // }
 
-// function resizebars(barArr, arr){
-//     for (let k = 0; k < barArr.length; k++) {
-//         barArr[k].style.height = (arr[k] * 100) + "%";
-//     }
-// }
