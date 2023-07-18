@@ -4,8 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
+    <div>
+        <label id="heuristic-label" for="heuristic" class="hidden" style="display: none;">Algorithm :</label>
+        <select id="heuristic" class="select">
+          <option value="0">Selection sort</option>
+          <option value="1">Bubble sort</option>
+          <option value="2">Insertion sort</option>
+          <option value="3">Quick sort</option>
+          <option value="4">Frequancy sort</option>
+        </select>
+        <input type="number" class="select barsCount" id="nobars"placeholder="Number of bars">
+        <input type="number" class="select delay" id="delay"placeholder="Delay time in ms">
+        <button class="button" id="refresh"role="button" >Refresh</button>
+        <button class="button" id="start"role="button">Start</button>    
+      </div>
     <div id="line-container"></div>
     <script src="main.js"></script>
 </body>
