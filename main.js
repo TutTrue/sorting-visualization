@@ -216,6 +216,7 @@ start.addEventListener('click', async function(){
   {
     numColumns = nobars.value? parseInt(nobars.value): 50
     columnWidth = Math.floor(screenWidth / numColumns);
+    numColumns = Math.floor(screenWidth / columnWidth);
     initBars(container, numColumns)
   }
   sleepDuaration = delay.value ? parseInt(delay.value):0
