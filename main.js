@@ -194,6 +194,37 @@ async function shellSort(arr) {
     }
     animationEnd(barArr);
   }
+
+  //--------Coctail sort--------//
+  async function coctailSort(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    let j = i
+    for (; j < arr.length - 1 - i; j++) {
+        if (arr[j] > arr[j + 1]) {
+        	barArr[j].style.backgroundColor = curcolor;
+        	barArr[j + 1].style.backgroundColor = curcolor;
+        	swap(arr, j, j + 1);
+        	await sleep(sleepDuaration);
+        	barArr[j].style.backgroundColor = barcolor;
+        	barArr[j + 1].style.backgroundColor = barcolor;
+        }
+    }
+    barArr[arr.length - 1 - i].style.backgroundColor = sortedcolor;
+    for (let k = j - 1; k > 0 ; k--) {
+        if (arr[k] < arr[k - 1]) {
+        	barArr[k].style.backgroundColor = curcolor;
+        	barArr[k - 1].style.backgroundColor = curcolor;
+        	swap(arr, k, k - 1);
+        	await sleep(sleepDuaration);
+        	barArr[k].style.backgroundColor = barcolor;
+        	barArr[k - 1].style.backgroundColor = barcolor;
+        }
+    }
+    barArr[i].style.backgroundColor = sortedcolor;
+  }
+  await animationEnd(barArr);
+}
+
 //--------helper functions--------//
 
 function initBars(container, numColumns){
@@ -284,10 +315,11 @@ algos = {
   "0": selectionSort,
   "1": bubbleSort,
   "2": oddEvenSort,
-  "3": insertionSort,
-  "4": shellSort,
-  "5": quickSort,
-  "6": frequancySort
+  "3": coctailSort,
+  "4": insertionSort,
+  "5": shellSort,
+  "6": quickSort,
+  "7": frequancySort
 }
 start.addEventListener('click', async function(){
   if (nobars.value)
