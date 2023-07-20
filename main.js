@@ -25,7 +25,7 @@ initBars(container, numColumns);
 
 
 //--------frequancy sort--------//
-async function frequancysort(arr){
+async function frequancySort(arr){
     for (let i = 0; i < arr.length; i++) {
         barArr[i].style.backgroundColor = curcolor;
         await sleep(sleepDuaration)
@@ -72,7 +72,7 @@ async function quickSort(arr, left = 0, right = arr.length - 1) {
   }
 
 //--------bubble sort--------//
-async function bubblesort(arr) {
+async function bubbleSort(arr) {
   let flag = 1
   for (let i = 0; i < arr.length; i++) {
     for (let j = 0; j < arr.length - 1 - i; j++) {
@@ -139,7 +139,61 @@ async function insertionSort(arr) {
     }
      animationEnd(barArr);
   }
+//--------Odd even sort--------//
+async function oddEvenSort(arr){
+    let sorted = 0
+    while(!sorted){
+      sorted = 1
+      for (let i = 0; i < arr.length; i+=2) {
+        if (arr[i] > arr[i+1]){
+          barArr[i].style.backgroundColor = curcolor;
+        	barArr[i + 1].style.backgroundColor = curcolor;
+          await sleep(sleepDuaration)
+          swap(arr, i, i+1)
+          barArr[i].style.backgroundColor = barcolor;
+        	barArr[i + 1].style.backgroundColor = barcolor;
+          sorted = 0
+        }
+      }
+      for (let i = 1; i < arr.length; i+=2) {
+        if (arr[i] > arr[i+1]){
+          barArr[i].style.backgroundColor = curcolor;
+        	barArr[i + 1].style.backgroundColor = curcolor;
+          await sleep(sleepDuaration)
+          swap(arr, i, i+1)
+          barArr[i].style.backgroundColor = barcolor;
+        	barArr[i + 1].style.backgroundColor = barcolor;
+          sorted = 0
+        }
+      }
+    }
+    await animationEnd(barArr)
+  }
 
+//--------shell sort--------//
+async function shellSort(arr) {
+    let gap = 1;
+    while(gap * 3 + 1 < arr.length){
+        gap  = gap * 3 + 1
+    }
+    while(gap > 0){
+        for (let i = gap; i < arr.length; i++) {
+          let j = i;
+          while (j > 0 && arr[j] <= arr[j - gap]) {
+            barArr[j].style.backgroundColor = curcolor;
+            barArr[j - gap].style.backgroundColor = curcolor;
+            await sleep(sleepDuaration);
+            swap(arr, j, j - gap);
+            barArr[j].style.backgroundColor = barcolor;
+            barArr[j - gap].style.backgroundColor = barcolor;
+            j-=gap;
+          }
+          
+        }
+        gap = Math.floor((gap - 1)/3)
+    }
+    animationEnd(barArr);
+  }
 //--------helper functions--------//
 
 function initBars(container, numColumns){
@@ -158,6 +212,7 @@ function initBars(container, numColumns){
       bar.style.bottom = "0";
       bar.style.width = columnWidth - 1 + "px";
       bar.style.height = (randomValues[i] * 90) + "%";
+      bar.style.transition = "height 0.2s";
       bar.style.backgroundColor = barcolor;
     
       container.appendChild(bar);
@@ -206,11 +261,34 @@ async function resizebars(barArr, arr){
         await sleep(sleepDuaration)
     }
 }
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const randomIndex = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[randomIndex]] = [arr[randomIndex], arr[i]];
+  }
+}
 //---------buttons action-------------//
 refresh.addEventListener('click', function(){
-  location.reload();
+  if (nobars.value)
+  {
+    numColumns = nobars.value? parseInt(nobars.value): 50
+    columnWidth = Math.floor(screenWidth / numColumns);
+    numColumns = Math.floor(screenWidth / columnWidth);
+    initBars(container, numColumns)
+  }else{
+    initBars(container, numColumns)
+  }
 })
 
+algos = {
+  "0": selectionSort,
+  "1": bubbleSort,
+  "2": oddEvenSort,
+  "3": insertionSort,
+  "4": shellSort,
+  "5": quickSort,
+  "6": frequancySort
+}
 start.addEventListener('click', async function(){
   if (nobars.value)
   {
@@ -220,33 +298,11 @@ start.addEventListener('click', async function(){
     initBars(container, numColumns)
   }
   sleepDuaration = delay.value ? parseInt(delay.value):0
-  switch (selectdElement.value){
-  case "0":
-    start.disabled  = true
-    await selectionSort(randomValues)
-    start.disabled  = false
-    break;
-  case "1":
-    start.disabled  = true
-    bubblesort(randomValues)
-    start.disabled  = false
-    break;
-  case "2":
-    start.disabled  = true
-    insertionSort(randomValues)
-    start.disabled  = false
-    break;
-  case "3":
-    start.disabled  = true
-    quickSort(randomValues)
-    start.disabled  = false
-    break;
-  case "4":
-    start.disabled  = true
-    frequancysort(randomValues, barArr)
-    start.disabled  = false
-    break;
-  }
+  start.disabled  = true
+  refresh.disabled = true
+  await algos[selectdElement.value](randomValues)
+  start.disabled  = false
+  refresh.disabled  = false
 })
 //-----------old ideas-----------//
 // function swapDivs(span1, span2) {
