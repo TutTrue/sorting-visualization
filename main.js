@@ -24,7 +24,7 @@ let barArr;
 initBars(container, numColumns);
 
 
-//--------frequancy sort--------//
+//--------Frequancy sort--------//
 async function frequancySort(arr){
     for (let i = 0; i < arr.length; i++) {
         barArr[i].style.backgroundColor = curcolor;
@@ -71,7 +71,7 @@ async function quickSort(arr, left = 0, right = arr.length - 1) {
     return i + 1;
   }
 
-//--------bubble sort--------//
+//--------Bubble sort--------//
 async function bubbleSort(arr) {
   let flag = 1
   for (let i = 0; i < arr.length; i++) {
@@ -93,7 +93,7 @@ async function bubbleSort(arr) {
   await animationEnd(barArr);
 }
 
-//--------selection sort--------//
+//--------Selection sort--------//
 async function selectionSort(arr) {
     const length = arr.length;
   
@@ -119,7 +119,7 @@ async function selectionSort(arr) {
     await animationEnd(barArr);
   }
 
-//--------insertion sort--------//
+//--------Insertion sort--------//
 async function insertionSort(arr) {
     for (let i = 1; i < arr.length; i++) {
       let j = i;
@@ -170,7 +170,7 @@ async function oddEvenSort(arr){
     await animationEnd(barArr)
   }
 
-//--------shell sort--------//
+//--------Shell sort--------//
 async function shellSort(arr) {
     let gap = 1;
     while(gap * 3 + 1 < arr.length){
@@ -195,8 +195,8 @@ async function shellSort(arr) {
     animationEnd(barArr);
   }
 
-  //--------Coctail sort--------//
-  async function coctailSort(arr) {
+  //--------Cocktail sort--------//
+  async function cocktailSort(arr) {
   for (let i = 0; i < arr.length; i++) {
     let j = i
     for (; j < arr.length - 1 - i; j++) {
@@ -315,7 +315,7 @@ algos = {
   "0": selectionSort,
   "1": bubbleSort,
   "2": oddEvenSort,
-  "3": coctailSort,
+  "3": cocktailSort,
   "4": insertionSort,
   "5": shellSort,
   "6": quickSort,
