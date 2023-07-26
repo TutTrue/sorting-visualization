@@ -33,21 +33,23 @@ To run the project locally, follow these steps:
 Once the project is running in your web browser, you can:
 
 1. Choose a sorting algorithm from the available options.
-2. Adjust the speed using the speed control slider.
+2. Adjust the speed using the Delay inputBox.
 3. Set the desired array size and range.
-4. Click the "Randomize" button to generate a new array.
-5. Click the "Sort" button to visualize the sorting algorithm in action.
-6. Use the step-by-step mode to understand each iteration of the sorting process.
+4. Click the "Shuffle" button to generate a new array.
+5. Click the "Start" button to visualize the sorting algorithm in action.
 
 ## Supported Sorting Algorithms
 
 The following sorting algorithms are currently supported:
 
-- Bubble Sort
 - Selection Sort
+- Bubble Sort
+- Odd even Sort
+- Cocktail Sort
 - Insertion Sort
-- Merge Sort
+- Shell Sort
 - Quick Sort
+- Frequancy Sort
 - Heap Sort
 
 Feel free to contribute and add more sorting algorithms!

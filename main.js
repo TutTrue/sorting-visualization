@@ -1,6 +1,7 @@
 let container = document.getElementById("line-container");
 let start = document.getElementById("start")
 let selectdElement = document.getElementById('heuristic');
+let shuffle = document.getElementById("shuffle")
 let refresh = document.getElementById("refresh")
 let nobars = document.getElementById('nobars');
 let delay = document.getElementById('delay');
@@ -350,7 +351,7 @@ function shuffleArray(arr) {
   }
 }
 //---------buttons action-------------//
-refresh.addEventListener('click', function(){
+shuffle.addEventListener('click', function(){
   if (nobars.value)
   {
 	numColumns = nobars.value? parseInt(nobars.value): 50
@@ -362,6 +363,10 @@ refresh.addEventListener('click', function(){
   }
 })
 
+refresh.addEventListener('click', function(){
+	location.reload();
+  })
+  
 algos = {
   "0": selectionSort,
   "1": bubbleSort,
@@ -383,10 +388,10 @@ start.addEventListener('click', async function(){
   }
   sleepDuaration = delay.value ? parseInt(delay.value):0
   start.disabled  = true
-  refresh.disabled = true
+  shuffle.disabled = true
   await algos[selectdElement.value](randomValues)
   start.disabled  = false
-  refresh.disabled  = false
+  shuffle.disabled  = false
 })
 //-----------old ideas-----------//
 // function swapDivs(span1, span2) {
