@@ -18,7 +18,7 @@ The "sorting-visualization" project aims to provide a visual representation of s
 
 ## Demo
 
-A live demo of the "sorting-visualization" project can be found [here](https://sorting-visualization-gray.vercel.app/).
+A live demo of the "sorting-visualization" project can be found [here](https://sorting-visualization-git-main-tuttrue.vercel.app/).
 
 ## Installation
 
